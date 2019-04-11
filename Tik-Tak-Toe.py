@@ -1,12 +1,13 @@
-# For Jupyter Notebook
-from IPython.display import clear_output
+# imports random to later decide which player goes first
+import random
 
 # Creates the board for tik tak toe
 def display_board(board):
+    '''
+    Function for printing out the Tik Tak Toe board
+    '''
 
-    # Method only working in Jupyter Notebook
-    # clear_output()
-    # Work-around for running the script other than in Jupyter
+    # 'Clears' the terminal window
     print ('\n'*100)
 
     # Printing the display_board
@@ -16,12 +17,13 @@ def display_board(board):
     print('-   -   -')
     print(board[1] + ' | ' + board[2] + ' | ' + board[3])
 
-# For testing purposes. To check how the board would look
+# For testing purposes. To check how the board would look, run the code below
 # test_board = ['#','X','O','X','O','X','O','X','O','X']
 # display_board(test_board)
 
 def player_input():
     '''
+    Function for assigning X and O to Player 1 or Player 2
     OUTPUT = (Player 1 marker, Player 2 marker)
     '''
 
@@ -39,13 +41,15 @@ def player_input():
     else:
         return ('O','X')
 
-# Testing user input
+# To test user input, run the code below
 # player1_marker, player2_marker = player_input()
 # player1_marker
 
 # Function that takes in the board list object, a marker and a desired position (number 1-9) and assigns it to the board
 def place_marker(board, marker, position):
-
+    '''
+    Functions that assigns a player marker on the board based on numbers from 1 to 9
+    '''
     board[position] = marker
 
 # Testing to see that the place_marker() works as intended
@@ -53,6 +57,9 @@ def place_marker(board, marker, position):
 
 # Writting a function that takes in a board and a mark (X or O) and then checks to see if that mark has won!
 def win_check(board, mark):
+    '''
+    Checks for win conditions
+    '''
     return ((board[7] == mark and board[8] == mark and board[9] == mark) or # across the top
     (board[4] == mark and board[5] == mark and board[6] == mark) or # across the middle
     (board[1] == mark and board[2] == mark and board[3] == mark) or # across the bottom
@@ -65,11 +72,10 @@ def win_check(board, mark):
 # Testing win_check(), should return True
 # win_check(test_board,'X')
 
-# Function that uses the random module to decide which player goes first
-
-import random
-
 def choose_first():
+    '''
+    Uses the random module to decide which player goes first
+    '''
     flip = random.randint(0,1)
 
     if flip == 0:
@@ -77,18 +83,25 @@ def choose_first():
     else:
         return 'Player 2'
 
-# Function that returns True/False infication whether a space on the board is freely available
 def space_check(board, position):
+    '''
+    Function that returns True/False whether a position on the board is free or taken
+    '''
     return board[position] == ' '
 
 def full_board_check(board):
+    '''
+    Function that checks if the board is full
+    '''
     for i in range(1,10):
         if space_check(board,i):
             return False
-    # Board is full if we return True
     return True
 
 def player_choice(board):
+    '''
+    Asks the player for a position on the board until the user chooses an available position
+    '''
 
     position = 0
 
@@ -97,15 +110,17 @@ def player_choice(board):
 
     return position
 
-# Function that asks the player if they want to play again and returns a boolean True if they do want to play again
 def replay():
+    '''
+    Asks the player if they want to play again
+    Returns True/False
+    '''
     choice = input("Play again? Enter Yes or No")
 
     return choice == "Yes"
 
-# While loop to keep running the game
 print("Welcome to Tic Tac Toe!")
-
+# While loop to keep running the game
 while True:
     # Play the game
     the_board = [' ']*10
